@@ -15,14 +15,21 @@ public class PlayerScript : MonoBehaviour
     float movement;
     int jumpState;
 
+    AudioSource Audio;
+    Vector3 worldPosition;
+
     void Start()
-    {      
+    {
+        Audio = GetComponent<AudioSource>();
         playerAnimator = GetComponent<Animator>();
         rb2d = this.GetComponent<Rigidbody2D>();
     }
-
     void Update()
     {
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = Camera.main.nearClipPlane;
+        worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
+
         int jumpState = playerAnimator.GetInteger("JumpState");
         if (rb2d.velocity.y < 0 && jumpState > 0)
         {
@@ -33,6 +40,14 @@ public class PlayerScript : MonoBehaviour
         {
             jump();
         }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            print(worldPosition);
+            transform.position = worldPosition;
+            Audio.Play();
+        }
+
     }
 
     void FixedUpdate()
