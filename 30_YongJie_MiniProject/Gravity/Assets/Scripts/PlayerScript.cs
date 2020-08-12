@@ -12,11 +12,12 @@ public class PlayerScript : MonoBehaviour
     Rigidbody2D rb2d;
     bool doubleJumping = false;
     bool onGravity = false;
+    bool facingLeft;
     float movement;
     int jumpState;
 
     AudioSource Audio;
-    Vector3 worldPosition;
+    Vector3 mousePos;
 
     void Start()
     {
@@ -25,11 +26,7 @@ public class PlayerScript : MonoBehaviour
         rb2d = this.GetComponent<Rigidbody2D>();
     }
     void Update()
-    {
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = Camera.main.nearClipPlane;
-        worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
-
+    {                       
         int jumpState = playerAnimator.GetInteger("JumpState");
         if (rb2d.velocity.y < 0 && jumpState > 0)
         {
@@ -41,32 +38,26 @@ public class PlayerScript : MonoBehaviour
             jump();
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            print(worldPosition);
-            transform.position = worldPosition;
-            Audio.Play();
-        }
-
+       
     }
 
     void FixedUpdate()
     {
         movement = Input.GetAxis("Horizontal");
-
+       
         // Update position
-        if(!onGravity)
+        if (!onGravity)
         {
             playerAnimator.SetFloat("Speed", Mathf.Abs(movement));
             if (movement > 0)
             {
                 rb2d.velocity = new Vector2(movement * moveSpeed, rb2d.velocity.y);
-                facingDirection();
+                facingDirection(facingLeft);
             }
             else if (movement < 0)
             {
                 rb2d.velocity = new Vector2(movement * moveSpeed, rb2d.velocity.y);
-                facingDirection();
+                facingDirection(!facingLeft);
             }
             else
             {
@@ -75,7 +66,24 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                print(mousePos);
 
+                if(mousePos.x > 0)
+                {
+                    facingDirection(facingLeft);
+                }
+                else if(mousePos.x < 0)
+                {
+                    facingDirection(!facingLeft);
+                }
+
+                playerAnimator.SetTrigger("Attack");
+                transform.position = mousePos;
+                Audio.Play();
+            }
         }
 
         if(Input.GetKeyDown(KeyCode.Space))
@@ -86,16 +94,18 @@ public class PlayerScript : MonoBehaviour
         //---------------------------------------------------------//
     }
 
-    void facingDirection()
+    void facingDirection(bool facing_Dir)
     {
-        if (movement < 0)
+        if(facing_Dir)
         {
             transform.eulerAngles = new Vector3(0, 180, 0);
         }
-        else if (movement > 0)
+        else
         {
             transform.eulerAngles = new Vector3(0, 0, 0);
         }
+
+
     }
 
     void jump()
@@ -149,6 +159,14 @@ public class PlayerScript : MonoBehaviour
     {
         playerAnimator.SetInteger("JumpState", 0);
         doubleJumping = false;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.tag == "Enemy")
+        {
+            print("Hit");
+        }
     }
 
     IEnumerator floatUp()
