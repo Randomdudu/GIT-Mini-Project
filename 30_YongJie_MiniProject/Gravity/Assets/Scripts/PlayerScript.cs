@@ -17,7 +17,8 @@ public class PlayerScript : MonoBehaviour
     int jumpState;
 
     AudioSource Audio;
-    Vector3 mousePos;
+    Vector2 mousePos;
+    Vector2 playerPos;
 
     void Start()
     {
@@ -69,13 +70,14 @@ public class PlayerScript : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                print(mousePos);
+                playerPos = transform.position;
+                print(mousePos);              
 
-                if(mousePos.x > 0)
+                if(mousePos.x > playerPos.x)
                 {
                     facingDirection(facingLeft);
                 }
-                else if(mousePos.x < 0)
+                else if(mousePos.x < playerPos.x)
                 {
                     facingDirection(!facingLeft);
                 }
