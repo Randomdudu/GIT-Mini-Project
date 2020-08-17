@@ -20,12 +20,18 @@ public class PlayerScript : MonoBehaviour
     Vector2 mousePos;
     Vector2 playerPos;
 
+    public int maxhealth = 100;
+    public int currenthealth;
+    public HealthBarScript healthscript;
     void Start()
     {
+        currenthealth = maxhealth;
+        healthscript.SetMaxHealth(maxhealth);
         Audio = GetComponent<AudioSource>();
         playerAnimator = GetComponent<Animator>();
         rb2d = this.GetComponent<Rigidbody2D>();
     }
+
     void Update()
     {                       
         int jumpState = playerAnimator.GetInteger("JumpState");
@@ -38,10 +44,11 @@ public class PlayerScript : MonoBehaviour
         {
             jump();
         }
-
-       
+        if(Input.GetKeyDown(KeyCode.F1))
+        {
+            TakeDamage(10);
+        }
     }
-
     void FixedUpdate()
     {
         movement = Input.GetAxis("Horizontal");
@@ -169,6 +176,12 @@ public class PlayerScript : MonoBehaviour
         {
             print("Hit");
         }
+    }
+
+    void TakeDamage(int damage)
+    {
+        currenthealth -= damage;
+        healthscript.SetHealth(currenthealth);
     }
 
     IEnumerator floatUp()
