@@ -2,7 +2,8 @@ fileFormatVersion: 2
 guid: 50e8b3f3540d906469c70d9a4de91666
 TextureImporter:
   fileIDToRecycleName:
-    21300000: redblue (3)_0
+    21300000: Health_Border
+    21300002: Other_Border
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -85,13 +86,33 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: redblue (3)_0
+      name: Health_Border
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 90
+        width: 111
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f392728b929d0e44943c46fbc801915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Other_Border
       rect:
         serializedVersion: 2
         x: 13
         y: 83
         width: 111
-        height: 15
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -99,7 +120,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f392728b929d0e44943c46fbc801915
+      spriteID: 443b51460985bcf47891b3bc37ae6a63
       vertices: []
       indices: 
       edges: []

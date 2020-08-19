@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\HealthBarScript.cs" />
+    <Compile Include="Assets\Scripts\OtherBarScript.cs" />
     <Compile Include="Assets\Scripts\ParallaxScript.cs" />
     <Compile Include="Assets\Scripts\PlayerScript.cs" />
     <Reference Include="Unity.2D.Animation.Runtime">

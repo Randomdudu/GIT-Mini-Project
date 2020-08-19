@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class HealthBarScript : MonoBehaviour
 {
-
     public Slider bar;
 
     public void SetHealth(int health)
