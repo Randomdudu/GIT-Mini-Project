@@ -5,15 +5,19 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemy;
-    public int score;
+    public float maxSpawnPosX;
+    public float minSpawnPosX;
+
+    public float maxSpawnPosY;
+    public float minSpawnPosY;
+
     public float spawnCooldown;
 
     GameObject player;
+    [SerializeField] int enemies = 10;
+    [SerializeField ]int enemiesSpawned;
     float timeUntilSpawn = 0;
-    int spawnTime;
-    int spawning;
     int wave;
-    int enemies = 10;
 
     void Start()
     {
@@ -23,26 +27,26 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        timeUntilSpawn -= Time.deltaTime;
+        timeUntilSpawn += Time.deltaTime;
 
-        if (timeUntilSpawn <= 0)
+        if (timeUntilSpawn >= spawnCooldown)
         {
          // Do your enemy spawns here
-         
-         // Reset for next spawn
-         timeUntilSpawn = spawnCooldown;
-        }
-        for (int enemiesSpawned = 0; enemiesSpawned < enemies; enemiesSpawned++)
-        {
+         if(enemiesSpawned < enemies)
+         {
             spawnEnemy();
+            enemiesSpawned++;
+         }
 
+         // Reset for next spawn
+         timeUntilSpawn = 0;
         }
     }
 
     void spawnEnemy()
     {
-        float spawnPointX = Random.Range(-25, 25);
-        float spawnPointY = Random.Range(-0.1f, 4.5f);
+        float spawnPointX = Random.Range(minSpawnPosX, maxSpawnPosX);
+        float spawnPointY = Random.Range(minSpawnPosY, maxSpawnPosY);
         Vector2 spawnPosition = new Vector2(spawnPointX, spawnPointY);
 
         Instantiate(enemy, spawnPosition, Quaternion.identity);

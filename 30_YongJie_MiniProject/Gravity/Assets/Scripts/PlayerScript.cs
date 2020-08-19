@@ -20,14 +20,27 @@ public class PlayerScript : MonoBehaviour
     Vector2 mousePos;
     Vector2 playerPos;
 
+    public int maxhealth = 100;
+    public int currenthealth;
+    public HealthBarScript healthscript;
+
+    public int maxother = 100;
+    public int currentother;
+    public int consumerate;
+    public OtherBarScript otherscript;
     void Start()
     {
+        currenthealth = maxhealth;
+        healthscript.SetMaxHealth(maxhealth);
+        currentother = maxother;
+        otherscript.SetMaxother(maxother);
         Audio = GetComponent<AudioSource>();
         playerAnimator = GetComponent<Animator>();
         rb2d = this.GetComponent<Rigidbody2D>();
     }
+
     void Update()
-    {                       
+    {
         int jumpState = playerAnimator.GetInteger("JumpState");
         if (rb2d.velocity.y < 0 && jumpState > 0)
         {
@@ -38,10 +51,16 @@ public class PlayerScript : MonoBehaviour
         {
             jump();
         }
-
-       
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            TakeDamage(10);
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            UseOther(10);
+        }
+        currentother = Mathf.FloorToInt(otherscript.bar.value);
     }
-
     void FixedUpdate()
     {
         movement = Input.GetAxis("Horizontal");
@@ -63,12 +82,13 @@ public class PlayerScript : MonoBehaviour
             else
             {
                 rb2d.velocity = new Vector2(0, rb2d.velocity.y);
-            }
+            }       
         }
         else
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
+                
                 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 playerPos = transform.position;
                 print(mousePos);              
@@ -86,6 +106,7 @@ public class PlayerScript : MonoBehaviour
                 transform.position = mousePos;
                 Audio.Play();
             }
+            otherscript.bar.value -= consumerate * Time.deltaTime;
         }
 
         if(Input.GetKeyDown(KeyCode.Space))
@@ -145,16 +166,16 @@ public class PlayerScript : MonoBehaviour
             onGravity = true;
             rb2d.gravityScale = 0;
             rb2d.velocity = Vector2.zero;
+            otherscript.regen = 0;
         }
         else
         {
             onGravity = false;
             rb2d.gravityScale = 1;
+            otherscript.regen = otherscript.originalregen;
             return;
         }
-                         
         StartCoroutine(floatUp());
-
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -169,6 +190,18 @@ public class PlayerScript : MonoBehaviour
         {
             print("Hit");
         }
+    }
+
+    void TakeDamage(int damage)
+    {
+        currenthealth -= damage;
+        healthscript.SetHealth(currenthealth);
+    }
+
+    void UseOther(int usage)
+    {
+        currentother -= usage;
+        otherscript.SetOther(currentother);
     }
 
     IEnumerator floatUp()
