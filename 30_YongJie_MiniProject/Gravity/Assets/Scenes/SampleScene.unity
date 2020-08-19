@@ -634,6 +634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bar: {fileID: 692179716}
   regen: 20
+  originalregen: 0
 --- !u!114 &692179716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1121,6 +1122,7 @@ MonoBehaviour:
   healthscript: {fileID: 386878559}
   maxother: 100
   currentother: 100
+  consumerate: 15
   otherscript: {fileID: 692179715}
 --- !u!61 &1881674242
 BoxCollider2D:

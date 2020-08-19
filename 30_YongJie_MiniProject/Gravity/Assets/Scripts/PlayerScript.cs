@@ -26,6 +26,7 @@ public class PlayerScript : MonoBehaviour
 
     public int maxother = 100;
     public int currentother;
+    public int consumerate;
     public OtherBarScript otherscript;
     void Start()
     {
@@ -105,6 +106,7 @@ public class PlayerScript : MonoBehaviour
                 transform.position = mousePos;
                 Audio.Play();
             }
+            otherscript.bar.value -= consumerate * Time.deltaTime;
         }
 
         if(Input.GetKeyDown(KeyCode.Space))
@@ -164,11 +166,13 @@ public class PlayerScript : MonoBehaviour
             onGravity = true;
             rb2d.gravityScale = 0;
             rb2d.velocity = Vector2.zero;
+            otherscript.regen = 0;
         }
         else
         {
             onGravity = false;
             rb2d.gravityScale = 1;
+            otherscript.regen = otherscript.originalregen;
             return;
         }
         StartCoroutine(floatUp());

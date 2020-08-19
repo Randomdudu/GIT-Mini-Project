@@ -7,10 +7,16 @@ public class OtherBarScript : MonoBehaviour
 {
     public Slider bar;
     public int regen;
+    public int originalregen;
 
+    void Start()
+    {
+        originalregen = regen;
+    }
     void Update()
     {
         bar.value += Time.deltaTime * regen;
+
     }
     public void SetOther(int other)
     {
