@@ -188,6 +188,7 @@ public class PlayerScript : MonoBehaviour
     {
         if(other.gameObject.tag == "Enemy")
         {
+            Destroy(other.gameObject);
             print("Hit");
         }
     }
@@ -220,68 +221,4 @@ public class PlayerScript : MonoBehaviour
         rb2d.velocity = Vector2.zero;
 
     }
-
-    /*
-     if(onGravity == false)
-        {      
-            rb2d.gravityScale = 5;         
-
-            movement = Input.GetAxis("Horizontal");
-            if (movement > 0)
-            {
-                rb2d.velocity = new Vector2(movement * moveSpeed, rb2d.velocity.y);
-            }
-            else if (movement < 0)
-            {
-                rb2d.velocity = new Vector2(movement * moveSpeed, rb2d.velocity.y);
-            }
-            else
-            {
-                rb2d.velocity = new Vector2(0, rb2d.velocity.y);
-            }
-
-            // for player faceing direction //
-            if (movement < 0)
-            {
-                transform.eulerAngles = new Vector3(0, 180, 0);
-            }
-            else if (movement > 0)
-            {
-                transform.eulerAngles = new Vector3(0, 0, 0);
-            }
-            //------------------------------//
-
-
-            if (isGrounded == true)
-            {
-                if (Input.GetButtonDown("Jump"))
-                {
-                    isGrounded = false;
-                    rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                playerAnimator.SetTrigger("gravityStandby");
-                playerAnimator.SetBool("onGravity", true);
-                onGravity = true;            
-                print(onGravity);
-
-            }
-        }
-        else if(onGravity == true)
-        {           
-            rb2d.gravityScale = 0;
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                onGravity = false;
-                playerAnimator.SetBool("onGravity", false);
-                print(onGravity);
-                
-            }
-        }
-     */
-
 }
