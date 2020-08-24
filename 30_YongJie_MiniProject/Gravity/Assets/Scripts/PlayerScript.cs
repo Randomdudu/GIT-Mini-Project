@@ -47,7 +47,7 @@ public class PlayerScript : MonoBehaviour
             playerAnimator.SetInteger("JumpState", 3);
         }
 
-        if(Input.GetKeyDown(KeyCode.W) && !onGravity)
+        if (Input.GetKeyDown(KeyCode.W) && !onGravity)
         {
             jump();
         }
@@ -64,7 +64,7 @@ public class PlayerScript : MonoBehaviour
     void FixedUpdate()
     {
         movement = Input.GetAxis("Horizontal");
-       
+
         // Update position
         if (!onGravity)
         {
@@ -82,22 +82,22 @@ public class PlayerScript : MonoBehaviour
             else
             {
                 rb2d.velocity = new Vector2(0, rb2d.velocity.y);
-            }       
+            }
         }
         else
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                
+
                 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 playerPos = transform.position;
-                print(mousePos);              
+                print(mousePos);
 
-                if(mousePos.x > playerPos.x)
+                if (mousePos.x > playerPos.x)
                 {
                     facingDirection(facingLeft);
                 }
-                else if(mousePos.x < playerPos.x)
+                else if (mousePos.x < playerPos.x)
                 {
                     facingDirection(!facingLeft);
                 }
@@ -109,17 +109,16 @@ public class PlayerScript : MonoBehaviour
             otherscript.bar.value -= consumerate * Time.deltaTime;
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {          
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
             gravitySwap();
         }
         
-        //---------------------------------------------------------//
     }
 
     void facingDirection(bool facing_Dir)
     {
-        if(facing_Dir)
+        if (facing_Dir)
         {
             transform.eulerAngles = new Vector3(0, 180, 0);
         }
@@ -133,7 +132,7 @@ public class PlayerScript : MonoBehaviour
 
     void jump()
     {
-        if(doubleJumping)
+        if (doubleJumping)
         {
             return;
         }
@@ -161,7 +160,7 @@ public class PlayerScript : MonoBehaviour
 
     void gravitySwap()
     {
-        if(!onGravity)
+        if (!onGravity)
         {
             onGravity = true;
             rb2d.gravityScale = 0;
@@ -186,7 +185,7 @@ public class PlayerScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Enemy")
         {
             print("Hit");
         }
@@ -220,68 +219,4 @@ public class PlayerScript : MonoBehaviour
         rb2d.velocity = Vector2.zero;
 
     }
-
-    /*
-     if(onGravity == false)
-        {      
-            rb2d.gravityScale = 5;         
-
-            movement = Input.GetAxis("Horizontal");
-            if (movement > 0)
-            {
-                rb2d.velocity = new Vector2(movement * moveSpeed, rb2d.velocity.y);
-            }
-            else if (movement < 0)
-            {
-                rb2d.velocity = new Vector2(movement * moveSpeed, rb2d.velocity.y);
-            }
-            else
-            {
-                rb2d.velocity = new Vector2(0, rb2d.velocity.y);
-            }
-
-            // for player faceing direction //
-            if (movement < 0)
-            {
-                transform.eulerAngles = new Vector3(0, 180, 0);
-            }
-            else if (movement > 0)
-            {
-                transform.eulerAngles = new Vector3(0, 0, 0);
-            }
-            //------------------------------//
-
-
-            if (isGrounded == true)
-            {
-                if (Input.GetButtonDown("Jump"))
-                {
-                    isGrounded = false;
-                    rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                playerAnimator.SetTrigger("gravityStandby");
-                playerAnimator.SetBool("onGravity", true);
-                onGravity = true;            
-                print(onGravity);
-
-            }
-        }
-        else if(onGravity == true)
-        {           
-            rb2d.gravityScale = 0;
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                onGravity = false;
-                playerAnimator.SetBool("onGravity", false);
-                print(onGravity);
-                
-            }
-        }
-     */
-
 }
