@@ -187,6 +187,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
+            Destroy(other.gameObject);
             print("Hit");
         }
     }
