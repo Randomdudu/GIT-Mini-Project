@@ -57,12 +57,12 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraScript.cs" />
     <Compile Include="Assets\Scripts\EnemyScript.cs" />
-    <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\HealthBarScript.cs" />
     <Compile Include="Assets\Scripts\OtherBarScript.cs" />
     <Compile Include="Assets\Scripts\ParallaxScript.cs" />
     <Compile Include="Assets\Scripts\PlayerScript.cs" />
+    <Compile Include="Assets\Scripts\WaveSpawner.cs" />
     <Reference Include="Unity.2D.Animation.Runtime">
       <HintPath>C:/Users/student/Documents/GitHub/YongJie_Project/GIT-Mini-Project/30_YongJie_MiniProject/Gravity/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
     </Reference>
