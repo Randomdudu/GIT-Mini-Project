@@ -10,14 +10,14 @@ public class WaveSpawner : MonoBehaviour
 
     public float spawnRate;
     public float timeBetweenWaves;
-    [SerializeField] float downTime;
+    float downTime;
 
     public int enemyToSpawn;
 
     public GameObject enemy;
 
-    [SerializeField] bool waveIsDone = true;
-    [SerializeField] int enemyCount;
+    bool waveIsDone = true;
+    int enemyCount;
 
     float posX, posY;
     Vector2 pos;
