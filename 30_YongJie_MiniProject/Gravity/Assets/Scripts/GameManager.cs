@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject playerInfo;
     int score;
-    GameObject player;
+
+    Vector2 playerStartPos;
 
     void Awake()
     {
-        player = GameObject.Find("Player");
+        playerStartPos = playerInfo.transform.position;
     }
 
     void Start()
@@ -19,6 +21,23 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
+        fallCheck();
     }
-}
+
+    void fallCheck()
+    {
+        int fallDMG = 30;
+
+        if (playerInfo.transform.position.y <= -5.5)
+        {
+            playerInfo.GetComponent<PlayerScript>().TakeDamage(fallDMG);
+            playerInfo.transform.position = playerStartPos;
+        }
+
+    }
+
+    void gameOver()
+    {
+
+    }
+}   

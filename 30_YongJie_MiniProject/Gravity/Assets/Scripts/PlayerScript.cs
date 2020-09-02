@@ -192,7 +192,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         currenthealth -= damage;
         healthscript.SetHealth(currenthealth);
