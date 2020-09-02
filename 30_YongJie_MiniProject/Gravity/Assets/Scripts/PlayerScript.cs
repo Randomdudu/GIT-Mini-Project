@@ -105,8 +105,15 @@ public class PlayerScript : MonoBehaviour
                 playerAnimator.SetTrigger("Attack");
                 transform.position = mousePos;
                 Audio.Play();
+            }          
+            if(otherscript.bar.value <= 0)
+            {
+                gravitySwap();
             }
-            otherscript.bar.value -= consumerate * Time.deltaTime;
+            else
+            {
+                otherscript.bar.value -= consumerate * Time.fixedDeltaTime;
+            }
         }
 
         if(Input.GetKeyDown(KeyCode.Space))

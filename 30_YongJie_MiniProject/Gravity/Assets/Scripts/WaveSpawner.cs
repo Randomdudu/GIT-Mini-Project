@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class WaveSpawner : MonoBehaviour
 {
-    public Text waveCountText;
     int waveCount = 0;
 
     public float spawnRate;
@@ -46,13 +45,13 @@ public class WaveSpawner : MonoBehaviour
             yield return new WaitForSeconds(spawnRate);
         }
         
-        if(spawnRate <= 0.15f)
+        if(spawnRate <= 0.25f)
         {
-            spawnRate = 0.15f;
+            spawnRate = 0.25f;
         }
         else
         {
-            spawnRate -= 0.15f;
+            spawnRate -= 0.1f;
         }
        
           
