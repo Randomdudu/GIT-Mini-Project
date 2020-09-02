@@ -106,7 +106,7 @@ public class PlayerScript : MonoBehaviour
                 transform.position = mousePos;
                 Audio.Play();
             }
-            otherscript.bar.value -= consumerate * Time.deltaTime;
+            otherscript.bar.value -= consumerate * Time.fixedDeltaTime;
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
