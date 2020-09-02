@@ -4,24 +4,41 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
-    public Transform player;
+    public GameObject bullet;
+    public GameObject player;
+
     public float speed;
+
+    public float shootTime;
+    float nextShotTime;
+
+    void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
+
 
     void Update()
     {
-        if(Vector2.Distance(transform.position, player.position) > 1)
+        shootPlayer();
+        rotateTowardsPlayer();
+    }
+
+    void shootPlayer()
+    {
+        nextShotTime += Time.deltaTime;
+        if(nextShotTime >= shootTime)
         {
-            
+            Instantiate(bullet, transform.position, Quaternion.identity);
+            nextShotTime = 0;
         }
     }
 
-    void rotateTowards(Vector2 _player)
+    void rotateTowardsPlayer()
     {
-        var offSet = 90;
-        Vector2 direction = _player - (Vector2)transform.position;
-        direction.Normalize();
-        float angel = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(Vector3.forward * (angel + offSet));
+        Vector3 vectorToTarget = player.transform.position - transform.position;
+        float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
     }
-
 }

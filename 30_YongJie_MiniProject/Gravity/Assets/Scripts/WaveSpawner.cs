@@ -16,7 +16,6 @@ public class WaveSpawner : MonoBehaviour
 
     public GameObject enemy;
 
-    bool waveIsDone = true;
     int enemyCount;
 
     float posX, posY;
@@ -24,45 +23,38 @@ public class WaveSpawner : MonoBehaviour
 
     void Update()
     {
-        waveCountText.text = "WAVE : " + waveCount.ToString();
-
-        if(waveIsDone = enemyCount == 0)
+        downTime += Time.deltaTime;
+        if (downTime >= timeBetweenWaves)
         {
-            downTime += Time.deltaTime;
-            if(downTime >= timeBetweenWaves)
-            {
-                waveCount++;
-                downTime = 0;
-                StartCoroutine(waveSpawner());
-            }
-                 
+            waveCount++;
+            downTime = 0;
+            StartCoroutine(waveSpawner());
         }
-    }
-
-    public void updateEnemyCount()
-    {
-        enemyCount--;
     }
 
     IEnumerator waveSpawner()
     {    
-        waveIsDone = false;
-
         for (int i = 0; i < enemyToSpawn; i++)
         {
             enemyCount += 1;
-            posX = Random.Range(-14, 14);
-            posY = Random.Range(5, -4.2f);
+            posX = Random.Range(-12, 35);
+            posY = Random.Range(-0.5f, -2.5f);
             pos = new Vector2(posX, posY);
 
             GameObject enemyClone = Instantiate(enemy,pos,transform.rotation);
 
             yield return new WaitForSeconds(spawnRate);
         }
-   
-        spawnRate -= 0.15f;
-        enemyToSpawn += 4;
-        waveIsDone = true;
+        
+        if(spawnRate <= 0.15f)
+        {
+            spawnRate = 0.15f;
+        }
+        else
+        {
+            spawnRate -= 0.15f;
+        }
+       
           
     }
 
