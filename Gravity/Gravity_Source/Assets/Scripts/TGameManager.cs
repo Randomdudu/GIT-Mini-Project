@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TGameManager : MonoBehaviour
 {
     public bool pause = true;
+    public GameObject button;
 
     void Update()
     {
@@ -18,4 +20,9 @@ public class TGameManager : MonoBehaviour
         }
     }
 
+    public void start()
+    {
+        pause = false;
+        button.SetActive(false);
+    }
 }
