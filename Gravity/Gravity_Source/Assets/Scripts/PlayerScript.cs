@@ -88,7 +88,6 @@ public class PlayerScript : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-
                 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 playerPos = transform.position;
                 print(mousePos);
@@ -101,7 +100,7 @@ public class PlayerScript : MonoBehaviour
                 {
                     facingDirection(!facingLeft);
                 }
-
+                otherscript.bar.value -= 10; 
                 playerAnimator.SetTrigger("Attack");
                 transform.position = mousePos;
                 Audio.Play();
@@ -134,8 +133,6 @@ public class PlayerScript : MonoBehaviour
         {
             transform.eulerAngles = new Vector3(0, 0, 0);
         }
-
-
     }
 
     void jump()
@@ -199,7 +196,6 @@ public class PlayerScript : MonoBehaviour
             print("Hit");
         }
     }
-
     public void TakeDamage(int damage)
     {
         currenthealth -= damage;
@@ -211,12 +207,10 @@ public class PlayerScript : MonoBehaviour
         currentother -= usage;
         otherscript.SetOther(currentother);
     }
-
     IEnumerator floatUp()
     {
         jumpState = playerAnimator.GetInteger("JumpState");
         playerAnimator.SetFloat("Speed", 0);
-
         if (jumpState == 0)
         {
             Vector2 velocity = rb2d.velocity;
@@ -226,6 +220,5 @@ public class PlayerScript : MonoBehaviour
         }
         yield return new WaitForSeconds(0.15f);
         rb2d.velocity = Vector2.zero;
-
     }
 }

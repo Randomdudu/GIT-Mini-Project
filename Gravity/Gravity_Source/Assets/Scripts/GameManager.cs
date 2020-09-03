@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject playerInfo;
+    int playerhealth;
     int score;
-
+    
     Vector2 playerStartPos;
 
     void Awake()
@@ -16,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()
@@ -35,9 +37,12 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
-    void gameOver()
+    void gameover()
     {
 
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }   
